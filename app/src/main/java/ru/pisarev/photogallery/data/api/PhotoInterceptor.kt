@@ -17,6 +17,8 @@ class PhotoInterceptor: Interceptor {
             .addQueryParameter("nojsoncallback","1")
             .addQueryParameter("extras","url_s")
             .addQueryParameter("safesearch","1")
+            .addQueryParameter("license", "7")
+            .addQueryParameter("sort", "interestingness-desc")
             .build()
 
         val newRequest: Request = originalRequest.newBuilder()
@@ -24,4 +26,5 @@ class PhotoInterceptor: Interceptor {
             .build()
         return chain.proceed(newRequest)
     }
+
 }

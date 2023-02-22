@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -29,9 +30,11 @@ class FlickrFetchr {
             .addInterceptor(PhotoInterceptor())
             .build()
 
+
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl("https://api.flickr.com/")
             .addConverterFactory(GsonConverterFactory.create()) //ScalarsConverterFactory.create()
+            .client(client)
             .build()
         flickrApi = retrofit.create(FlickrApi::class.java)
     }
@@ -55,7 +58,7 @@ class FlickrFetchr {
                 var gallaryItems: List<GalleryItem> = photoResponse?.galleryItems
                     ?: mutableListOf()
                 gallaryItems = gallaryItems.filterNot {
-                    it.url.isBlank()
+                    it.url.isNullOrBlank()
                 }
                 responseLiveData.value=gallaryItems
             }
