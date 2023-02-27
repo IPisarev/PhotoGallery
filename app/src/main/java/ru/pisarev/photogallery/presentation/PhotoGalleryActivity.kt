@@ -1,5 +1,7 @@
 package ru.pisarev.photogallery.presentation
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import ru.pisarev.photogallery.R
@@ -15,6 +17,12 @@ class PhotoGalleryActivity : AppCompatActivity() {
                 .beginTransaction()
                 .add(R.id.fragmentContainer, PhotoGalleryFragment.newInstance())
                 .commit()
+        }
+    }
+
+    companion object {
+        fun newIntent(context: Context): Intent {
+            return Intent(context,PhotoGalleryActivity::class.java)
         }
     }
 }
